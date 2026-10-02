@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Jogo educativo de Verdadeiro ou Falso sobre Educação Física para alunos do 6º ano do Ensino Fundamental." />
+  <title>Esporte Quiz — Verdadeiro ou Falso | Educação Física 6º ano</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ================= CABEÇALHO ================= -->
+  <header class="cabecalho">
+    <h1>🏃‍♂️ Esporte Quiz</h1>
+    <p>Educação Física • 6º ano • Verdadeiro ou Falso</p>
+  </header>
+
+  <!-- ================= CONTEÚDO PRINCIPAL ================= -->
+  <main>
+
+    <!-- ---------- TELA 1: INÍCIO ---------- -->
+    <section id="tela-inicio" class="tela ativa" aria-labelledby="titulo-inicio">
+      <div class="cartao inicio">
+        <div class="mascote" aria-hidden="true">⚽</div>
+
+        <h2 id="titulo-inicio">Verdadeiro ou Falso?</h2>
+        <p class="subtitulo">Desafios rápidos de <strong>Educação Física</strong></p>
+
+        <ul class="regras">
+          <li><span class="icone" aria-hidden="true">⏱️</span> Você tem <strong>15 segundos</strong> para responder cada desafio.</li>
+          <li><span class="icone" aria-hidden="true">❤️</span> Você começa com <strong>3 vidas</strong>. Errar ou deixar o tempo acabar custa 1 vida.</li>
+          <li><span class="icone" aria-hidden="true">⚡</span> Quanto mais rápido responder, <strong>mais pontos</strong> você ganha!</li>
+          <li><span class="icone" aria-hidden="true">🎯</span> São <strong>15 desafios</strong> sobre esportes, jogos, lutas e saúde.</li>
+        </ul>
+
+        <button id="botao-comecar" class="botao botao-principal" type="button">
+          ▶ Começar a jogar
+        </button>
+
+        <p class="recorde">🏆 Melhor pontuação: <span id="melhor-pontuacao">0</span></p>
+      </div>
+    </section>
+
+    <!-- ---------- TELA 2: JOGO ---------- -->
+    <section id="tela-jogo" class="tela" aria-labelledby="texto-pergunta">
+      <div class="cartao">
+
+        <!-- Placar superior -->
+        <div class="hud">
+          <div class="hud-item hud-vidas" id="hud-vidas" aria-label="Vidas restantes"></div>
+          <div class="hud-item hud-questao" aria-label="Número do desafio">
+            🎯 <span id="numero-questao">1</span>/<span id="total-questoes">15</span>
+          </div>
+          <div class="hud-item hud-pontos" aria-label="Pontuação">
+            ⭐ <span id="pontuacao">0</span>
+          </div>
+        </div>
+
+        <!-- Barra de tempo -->
+        <div class="area-tempo">
+          <div class="barra-tempo" role="progressbar" aria-label="Tempo restante">
+            <div id="preenchimento-tempo"></div>
+          </div>
+          <span id="tempo-texto" class="tempo-texto">15s</span>
+        </div>
+
+        <!-- Pergunta -->
+        <p id="texto-pergunta" class="texto-pergunta">Carregando desafio...</p>
+
+        <!-- Botões de resposta -->
+        <div class="botoes-resposta" id="botoes-resposta">
+          <button class="botao-resposta botao-verdadeiro" data-resposta="true" type="button">
+            <span class="simbolo" aria-hidden="true">✔</span> VERDADEIRO
+          </button>
+          <button class="botao-resposta botao-falso" data-resposta="false" type="button">
+            <span class="simbolo" aria-hidden="true">✘</span> FALSO
+          </button>
+        </div>
+
+        <!-- Painel de feedback -->
+        <div id="painel-feedback" class="painel-feedback oculto" role="status" aria-live="polite">
+          <p id="feedback-titulo" class="feedback-titulo"></p>
+          <p id="feedback-explicacao" class="feedback-explicacao"></p>
+          <button id="botao-proxima" class="botao botao-proxima" type="button">Próxima ➡</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ---------- TELA 3: FIM DE JOGO ---------- -->
+    <section id="tela-fim" class="tela" aria-labelledby="titulo-fim">
+      <div class="cartao fim">
+        <div id="medalha" class="mascote" aria-hidden="true">🏆</div>
+
+        <h2 id="titulo-fim">Fim de jogo!</h2>
+        <p id="mensagem-fim" class="subtitulo"></p>
+
+        <div class="placar-final">
+          <div class="placar-item">
+            <span class="placar-valor" id="pontos-finais">0</span>
+            <span class="placar-rotulo">pontos</span>
+          </div>
+          <div class="placar-item">
+            <span class="placar-valor" id="acertos-finais">0</span>
+            <span class="placar-rotulo">acertos</span>
+          </div>
+          <div class="placar-item">
+            <span class="placar-valor" id="desafios-finais">0</span>
+            <span class="placar-rotulo">desafios</span>
+          </div>
+        </div>
+
+        <p class="recorde">🏆 Melhor pontuação: <span id="melhor-pontuacao-fim">0</span></p>
+
+        <button id="botao-reiniciar" class="botao botao-principal" type="button">
+          🔄 Jogar de novo
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= RODAPÉ ================= -->
+  <footer class="rodape">
+    <p>Jogo educativo • Educação Física • 6º ano do Ensino Fundamental</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
