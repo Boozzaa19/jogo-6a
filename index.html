@@ -3,98 +3,207 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Jogo educativo de Verdadeiro ou Falso sobre Educação Física para alunos do 6º ano do Ensino Fundamental." />
-  <title>Esporte Quiz — Verdadeiro ou Falso | Educação Física 6º ano</title>
+  <meta name="description" content="Arena dos Campeões: O Desafio dos Esportes — jogo educativo interativo de Educação Física para o 6º ano do Ensino Fundamental." />
+  <title>🏆 Arena dos Campeões — O Desafio dos Esportes | Educação Física 6º ano</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ================= CABEÇALHO ================= -->
+  <!-- ============ LINHAS DE QUADRA NO FUNDO ============ -->
+  <div class="quadra-fundo" aria-hidden="true"></div>
+
+  <!-- ============ CABEÇALHO / PAINEL DO GINÁSIO ============ -->
   <header class="cabecalho">
-    <h1>🏃‍♂️ Esporte Quiz</h1>
-    <p>Educação Física • 6º ano • Verdadeiro ou Falso</p>
+    <div class="cabecalho-conteudo">
+      <div class="logo-arena">
+        <span class="logo-icone" aria-hidden="true">🏟️</span>
+        <div class="logo-texto">
+          <h1>Arena dos Campeões</h1>
+          <p>O Desafio dos Esportes • Educação Física • 6º ano</p>
+        </div>
+      </div>
+      <button id="botao-som" class="botao-som" type="button" aria-label="Ligar ou desligar os sons">🔊</button>
+    </div>
+    <div class="faixa-led" aria-hidden="true"></div>
   </header>
 
-  <!-- ================= CONTEÚDO PRINCIPAL ================= -->
+  <!-- ============ CONTEÚDO PRINCIPAL ============ -->
   <main>
 
-    <!-- ---------- TELA 1: INÍCIO ---------- -->
+    <!-- ============================================================
+         TELA 1 — ENTRADA NA ARENA
+    ============================================================ -->
     <section id="tela-inicio" class="tela ativa" aria-labelledby="titulo-inicio">
       <div class="cartao inicio">
-        <div class="mascote" aria-hidden="true">⚽</div>
 
-        <h2 id="titulo-inicio">Verdadeiro ou Falso?</h2>
-        <p class="subtitulo">Desafios rápidos de <strong>Educação Física</strong></p>
+        <div class="mascote" aria-hidden="true">🏟️</div>
+
+        <h2 id="titulo-inicio">Bem-vindo à Arena!</h2>
+        <p class="subtitulo">
+          Você é um jovem atleta em busca da <strong>convocação para os Jogos Escolares</strong>.
+          Vença os desafios, monte seu armário e conquiste suas medalhas!
+        </p>
 
         <ul class="regras">
-          <li><span class="icone" aria-hidden="true">⏱️</span> Você tem <strong>15 segundos</strong> para responder cada desafio.</li>
-          <li><span class="icone" aria-hidden="true">❤️</span> Você começa com <strong>3 vidas</strong>. Errar ou deixar o tempo acabar custa 1 vida.</li>
-          <li><span class="icone" aria-hidden="true">⚡</span> Quanto mais rápido responder, <strong>mais pontos</strong> você ganha!</li>
-          <li><span class="icone" aria-hidden="true">🎯</span> São <strong>15 desafios</strong> sobre esportes, jogos, lutas e saúde.</li>
+          <li>
+            <span class="icone" aria-hidden="true">🔥</span>
+            <strong>Aquecimento:</strong> antes de cada pergunta, faça a jogada tática para ganhar bônus de precisão e tempo extra.
+          </li>
+          <li>
+            <span class="icone" aria-hidden="true">⏱️</span>
+            <strong>Tempo:</strong> responda antes do cronômetro zerar. Cada segundo vale pontos!
+          </li>
+          <li>
+            <span class="icone" aria-hidden="true">❤️</span>
+            <strong>Energia:</strong> você começa com <strong>5 energias</strong>. Errar ou deixar o tempo acabar custa 1.
+          </li>
+          <li>
+            <span class="icone" aria-hidden="true">🃏</span>
+            <strong>Cartões do Técnico:</strong> use Prancheta, Timeout e Hidratação na hora certa.
+          </li>
+          <li>
+            <span class="icone" aria-hidden="true">🎒</span>
+            <strong>Armário:</strong> desbloqueie medalhas e equipamentos para o seu vestiário.
+          </li>
         </ul>
 
         <button id="botao-comecar" class="botao botao-principal" type="button">
-          ▶ Começar a jogar
+          ▶ Entrar na Arena
         </button>
 
         <p class="recorde">🏆 Melhor pontuação: <span id="melhor-pontuacao">0</span></p>
+
+        <div class="armario-preview">
+          <h3>🎒 Seu Armário de Conquistas</h3>
+          <p class="armario-sub">Itens desbloqueados ficam guardados para sempre!</p>
+          <div id="armario-inicio" class="armario-grade"></div>
+        </div>
+
       </div>
     </section>
 
-    <!-- ---------- TELA 2: JOGO ---------- -->
+    <!-- ============================================================
+         TELA 2 — JOGO
+    ============================================================ -->
     <section id="tela-jogo" class="tela" aria-labelledby="texto-pergunta">
-      <div class="cartao">
+      <div class="cartao painel-jogo">
 
-        <!-- Placar superior -->
-        <div class="hud">
-          <div class="hud-item hud-vidas" id="hud-vidas" aria-label="Vidas restantes"></div>
-          <div class="hud-item hud-questao" aria-label="Número do desafio">
-            🎯 <span id="numero-questao">1</span>/<span id="total-questoes">15</span>
+        <!-- ---------- PLACAR ELETRÔNICO ---------- -->
+        <div class="placar-led" aria-label="Placar do jogo">
+          <div class="led-item">
+            <span class="led-rotulo">ENERGIA</span>
+            <span id="hud-vidas" class="led-valor led-energia">❤️❤️❤️</span>
           </div>
-          <div class="hud-item hud-pontos" aria-label="Pontuação">
-            ⭐ <span id="pontuacao">0</span>
+          <div class="led-item">
+            <span class="led-rotulo">DESAFIO</span>
+            <span class="led-valor">
+              <span id="numero-questao">1</span><span class="led-sep">/</span><span id="total-questoes">12</span>
+            </span>
+          </div>
+          <div class="led-item">
+            <span class="led-rotulo">PONTOS</span>
+            <span id="pontuacao" class="led-valor led-pontos">0</span>
+          </div>
+          <div class="led-item">
+            <span class="led-rotulo">TEMPO</span>
+            <span id="tempo-texto" class="led-valor led-tempo">18</span>
           </div>
         </div>
 
-        <!-- Barra de tempo -->
+        <!-- ---------- BARRA DE TEMPO ---------- -->
         <div class="area-tempo">
           <div class="barra-tempo" role="progressbar" aria-label="Tempo restante">
             <div id="preenchimento-tempo"></div>
           </div>
-          <span id="tempo-texto" class="tempo-texto">15s</span>
         </div>
 
-        <!-- Pergunta -->
-        <p id="texto-pergunta" class="texto-pergunta">Carregando desafio...</p>
+        <!-- ---------- AVISO DE TIMEOUT ---------- -->
+        <div id="aviso-timeout" class="aviso-timeout oculto">
+          ⏱️ PEDIDO DE TEMPO — <span id="timeout-contador">10</span>s
+        </div>
 
-        <!-- Botões de resposta -->
-        <div class="botoes-resposta" id="botoes-resposta">
-          <button class="botao-resposta botao-verdadeiro" data-resposta="true" type="button">
-            <span class="simbolo" aria-hidden="true">✔</span> VERDADEIRO
+        <!-- ---------- FAIXA DA MODALIDADE ---------- -->
+        <div id="faixa-modalidade" class="faixa-modalidade">
+          <span class="modalidade-icone" id="modalidade-icone" aria-hidden="true">⚽</span>
+          <div class="modalidade-texto">
+            <span class="modalidade-nome" id="modalidade-nome">Futsal</span>
+            <span class="modalidade-tag" id="modalidade-tag">Esporte de Invasão</span>
+          </div>
+        </div>
+
+        <!-- ---------- ZONA DE AQUECIMENTO ---------- -->
+        <div id="zona-aquecimento" class="zona-aquecimento">
+          <p class="aquecimento-titulo" id="aquecimento-titulo">🎯 Aqueça a mira!</p>
+          <p class="aquecimento-instrucao" id="aquecimento-instrucao">Clique quando o marcador cruzar a zona verde.</p>
+
+          <div class="aquecimento-palco" id="palco-aquecimento"></div>
+
+          <button id="botao-acao" class="botao botao-acao" type="button">🎯 LANÇAR!</button>
+
+          <p class="aquecimento-resultado" id="aquecimento-resultado" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- ---------- ZONA DA PERGUNTA ---------- -->
+        <div id="zona-pergunta" class="zona-pergunta oculto">
+          <p id="texto-pergunta" class="texto-pergunta">Carregando desafio...</p>
+
+          <div id="dica-tecnico" class="dica-tecnico oculto">
+            <span class="dica-icone" aria-hidden="true">📋</span>
+            <p id="dica-texto" class="dica-texto"></p>
+          </div>
+
+          <div class="botoes-resposta" id="botoes-resposta">
+            <button class="botao-resposta botao-valida" data-resposta="true" type="button">
+              <span class="simbolo" aria-hidden="true">✔</span> JOGADA VÁLIDA
+            </button>
+            <button class="botao-resposta botao-invalida" data-resposta="false" type="button">
+              <span class="simbolo" aria-hidden="true">✘</span> JOGADA INVÁLIDA
+            </button>
+          </div>
+        </div>
+
+        <!-- ---------- CARTÕES TÁTICOS DO TÉCNICO ---------- -->
+        <div class="cartoes-tecnico" id="cartoes-tecnico">
+          <button class="cartao-tatico" id="cartao-prancheta" type="button">
+            <span class="cartao-icone" aria-hidden="true">📋</span>
+            <span class="cartao-nome">Prancheta do Técnico</span>
+            <span class="cartao-info">Dica tática • <b class="cartao-usos">2</b> usos</span>
           </button>
-          <button class="botao-resposta botao-falso" data-resposta="false" type="button">
-            <span class="simbolo" aria-hidden="true">✘</span> FALSO
+
+          <button class="cartao-tatico" id="cartao-tempo" type="button">
+            <span class="cartao-icone" aria-hidden="true">⏱️</span>
+            <span class="cartao-nome">Pedido de Tempo</span>
+            <span class="cartao-info">Pausa 10s • <b class="cartao-usos">1</b> uso</span>
+          </button>
+
+          <button class="cartao-tatico" id="cartao-hidratacao" type="button">
+            <span class="cartao-icone" aria-hidden="true">💧</span>
+            <span class="cartao-nome">Pausa p/ Hidratação</span>
+            <span class="cartao-info">+1 energia • <b class="cartao-usos">1</b> uso</span>
           </button>
         </div>
 
-        <!-- Painel de feedback -->
+        <!-- ---------- PAINEL DE FEEDBACK / NARRAÇÃO ---------- -->
         <div id="painel-feedback" class="painel-feedback oculto" role="status" aria-live="polite">
           <p id="feedback-titulo" class="feedback-titulo"></p>
           <p id="feedback-explicacao" class="feedback-explicacao"></p>
-          <button id="botao-proxima" class="botao botao-proxima" type="button">Próxima ➡</button>
+          <button id="botao-proxima" class="botao botao-proxima" type="button">Próxima jogada ➡</button>
         </div>
 
       </div>
     </section>
 
-    <!-- ---------- TELA 3: FIM DE JOGO ---------- -->
+    <!-- ============================================================
+         TELA 3 — VESTIÁRIO / FIM DE JOGO
+    ============================================================ -->
     <section id="tela-fim" class="tela" aria-labelledby="titulo-fim">
       <div class="cartao fim">
+
         <div id="medalha" class="mascote" aria-hidden="true">🏆</div>
 
         <h2 id="titulo-fim">Fim de jogo!</h2>
@@ -115,19 +224,26 @@
           </div>
         </div>
 
+        <div class="vestiario">
+          <h3>🎒 Vestiário do Atleta</h3>
+          <p class="armario-sub" id="vestiario-sub">Seu armário de conquistas</p>
+          <div id="armario-fim" class="armario-grade"></div>
+        </div>
+
         <p class="recorde">🏆 Melhor pontuação: <span id="melhor-pontuacao-fim">0</span></p>
 
         <button id="botao-reiniciar" class="botao botao-principal" type="button">
-          🔄 Jogar de novo
+          🔄 Voltar para a Arena
         </button>
+
       </div>
     </section>
 
   </main>
 
-  <!-- ================= RODAPÉ ================= -->
+  <!-- ============ RODAPÉ ============ -->
   <footer class="rodape">
-    <p>Jogo educativo • Educação Física • Feito por: Pedro Bozza</p>
+    <p>🏟️ Arena dos Campeões • Jogo educativo de Educação Física • Pedro Bozza</p>
   </footer>
 
   <script src="script.js"></script>
