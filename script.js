@@ -356,7 +356,7 @@ const Som = (function () {
    ============================================================ */
 const TOTAL_DESAFIOS       = 12;
 const TEMPO_BASE           = 18;   // segundos por pergunta
-const ENERGIA_INICIAL      = 3;
+const ENERGIA_INICIAL      = 5;    // alinhado com as regras e com o HUD (5 corações)
 const ENERGIA_MAXIMA       = 5;
 const PONTOS_BASE          = 100;
 const BONUS_PRECISAO_MAX   = 50;
@@ -724,7 +724,7 @@ const TEXTOS_AQUECIMENTO = {
   reflexo: {
     titulo: '⚡ Reflexo de atleta!',
     instrucao: 'Clique no botão ASSIM QUE o sinal ficar verde.',
-    botao: '⚡ AGORA!'
+    botao: '⚡ ESPERE...'
   }
 };
 
@@ -819,6 +819,7 @@ function montarPalco(tipo) {
       painel.classList.add('pronto');
       emoji.textContent = '🟢';
       texto.textContent = 'AGORA!';
+      botaoAcao.textContent = '⚡ AGORA!';   // corrige: só convida ao clique quando o sinal fica verde
       Som.tick();
     }, atraso);
   }
@@ -1182,11 +1183,18 @@ function usarHidratacao() {
   atualizarHUD();
   atualizarCartoes();
 
-  if (fase === 'feedback') {
-    /* nada extra */
-  } else {
+  if (fase === 'aquecimento') {
     aquecimentoResultado.textContent = '💧 Hidratado! +1 energia recuperada.';
+  } else if (fase === 'pergunta') {
+    /* Antes o texto ia para um elemento escondido (zona-aquecimento).
+       Agora reutilizamos o painel de feedback como "toast" visível. */
+    feedbackTitulo.textContent = '💧 Pausa para hidratação! +1 energia';
+    feedbackExplicacao.textContent = 'Hidratação feita na hora certa: você recuperou energia para continuar na partida.';
+    painelFeedback.classList.remove('oculto', 'erro', 'tempo-esgotado');
+    painelFeedback.classList.add('acerto');
+    botaoProxima.style.display = 'none'; // ainda não é hora de avançar
   }
+  /* Em 'feedback', preservamos a explicação da resposta — HUD + som já sinalizam a hidratação. */
 }
 
 /* ============================================================
